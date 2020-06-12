@@ -1,5 +1,6 @@
 node_modules
 apps/front/public
+apps/api-platform
 package.json
 *.svelte
 *.json
