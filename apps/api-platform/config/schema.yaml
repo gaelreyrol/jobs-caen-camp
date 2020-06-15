@@ -6,10 +6,12 @@ types:
             title: ~
             url: ~
             datePosted: ~
-            employerOverview: ~
+            employerOverview:
+                range: Text
             employmentType: ~
             experienceRequirements: ~
-            jobStartDate: ~
+            jobStartDate:
+                range: Date
             skills: ~
             validThrough: ~
             hiringOrganization: ~
@@ -20,7 +22,8 @@ types:
             url: ~
             email: ~
             image: ~
-            address: ~
+            address:
+                range: PostalAddress
             contactPoints: ~
     PostalAddress:
         properties:
