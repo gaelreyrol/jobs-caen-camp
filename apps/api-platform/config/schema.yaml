@@ -1,3 +1,36 @@
 id:
     generationStrategy: uuid
 types:
+    JobPosting:
+        properties:
+            title: ~
+            url: ~
+            datePosted: ~
+            employerOverview: ~
+            employmentType: ~
+            experienceRequirements: ~
+            jobStartDate: ~
+            skills: ~
+            validThrough: ~
+            hiringOrganization: ~
+    Organization:
+        properties:
+            name: ~
+            description: ~
+            url: ~
+            email: ~
+            image: ~
+            address: ~
+            contactPoints: ~
+    PostalAddress:
+        properties:
+            streetAddress: ~
+            postalCode: ~
+            addressLocality: ~
+            addressCountry: ~
+    ContactPoint:
+        properties:
+            name: ~
+            email: ~
+            telephone: ~
+            contactType: ~
