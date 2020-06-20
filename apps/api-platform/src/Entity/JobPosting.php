@@ -30,10 +30,11 @@ class JobPosting
     private $id;
 
     /**
-     * @var string|null the title of the job
+     * @var string the title of the job
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      * @ApiProperty(iri="http://schema.org/title")
+     * @Assert\NotNull
      */
     private $title;
 
@@ -47,59 +48,66 @@ class JobPosting
     private $url;
 
     /**
-     * @var \DateTimeInterface|null publication date for the job posting
+     * @var \DateTimeInterface publication date of an online listing
      *
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="date")
      * @ApiProperty(iri="http://schema.org/datePosted")
      * @Assert\Date
+     * @Assert\NotNull
      */
     private $datePosted;
 
     /**
-     * @var string|null
+     * @var string a description of the employer, career opportunities and work environment for this position
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
+     * @ApiProperty(iri="http://schema.org/employerOverview")
+     * @Assert\NotNull
      */
     private $employerOverview;
 
     /**
-     * @var string|null Type of employment (e.g. full-time, part-time, contract, temporary, seasonal, internship).
+     * @var string Type of employment (e.g. full-time, part-time, contract, temporary, seasonal, internship).
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      * @ApiProperty(iri="http://schema.org/employmentType")
+     * @Assert\NotNull
      */
     private $employmentType;
 
     /**
-     * @var string|null description of skills and experience needed for the position
+     * @var string description of skills and experience needed for the position or Occupation
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      * @ApiProperty(iri="http://schema.org/experienceRequirements")
+     * @Assert\NotNull
      */
     private $experienceRequirement;
 
     /**
-     * @var \DateTimeInterface|null
+     * @var \DateTimeInterface|null The date on which a successful applicant for this job would be expected to start work. Choose a specific date in the future or use the jobImmediateStart property to indicate the position is to be filled as soon as possible.
      *
      * @ORM\Column(type="date", nullable=true)
+     * @ApiProperty(iri="http://schema.org/jobStartDate")
      * @Assert\Date
      */
     private $jobStartDate;
 
     /**
-     * @var string|null skills required to fulfill this role
+     * @var string a statement of knowledge, skill, ability, task or any other assertion expressing a competency that is desired or required to fulfill this role or to work in this occupation
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      * @ApiProperty(iri="http://schema.org/skills")
+     * @Assert\NotNull
      */
     private $skill;
 
     /**
      * @var \DateTimeInterface|null The date after when the item is not valid. For example the end of an offer, salary period, or a period of opening hours.
      *
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="date", nullable=true)
      * @ApiProperty(iri="http://schema.org/validThrough")
-     * @Assert\DateTime
+     * @Assert\Date
      */
     private $validThrough;
 
@@ -116,12 +124,12 @@ class JobPosting
         return $this->id;
     }
 
-    public function setTitle(?string $title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -136,42 +144,42 @@ class JobPosting
         return $this->url;
     }
 
-    public function setDatePosted(?\DateTimeInterface $datePosted): void
+    public function setDatePosted(\DateTimeInterface $datePosted): void
     {
         $this->datePosted = $datePosted;
     }
 
-    public function getDatePosted(): ?\DateTimeInterface
+    public function getDatePosted(): \DateTimeInterface
     {
         return $this->datePosted;
     }
 
-    public function setEmployerOverview(?string $employerOverview): void
+    public function setEmployerOverview(string $employerOverview): void
     {
         $this->employerOverview = $employerOverview;
     }
 
-    public function getEmployerOverview(): ?string
+    public function getEmployerOverview(): string
     {
         return $this->employerOverview;
     }
 
-    public function setEmploymentType(?string $employmentType): void
+    public function setEmploymentType(string $employmentType): void
     {
         $this->employmentType = $employmentType;
     }
 
-    public function getEmploymentType(): ?string
+    public function getEmploymentType(): string
     {
         return $this->employmentType;
     }
 
-    public function setExperienceRequirement(?string $experienceRequirement): void
+    public function setExperienceRequirement(string $experienceRequirement): void
     {
         $this->experienceRequirement = $experienceRequirement;
     }
 
-    public function getExperienceRequirement(): ?string
+    public function getExperienceRequirement(): string
     {
         return $this->experienceRequirement;
     }
@@ -186,12 +194,12 @@ class JobPosting
         return $this->jobStartDate;
     }
 
-    public function setSkill(?string $skill): void
+    public function setSkill(string $skill): void
     {
         $this->skill = $skill;
     }
 
-    public function getSkill(): ?string
+    public function getSkill(): string
     {
         return $this->skill;
     }

@@ -30,10 +30,11 @@ class Organization
     private $id;
 
     /**
-     * @var string|null the name of the item
+     * @var string the name of the item
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      * @ApiProperty(iri="http://schema.org/name")
+     * @Assert\NotNull
      */
     private $name;
 
@@ -46,25 +47,27 @@ class Organization
     private $description;
 
     /**
-     * @var string|null URL of the item
+     * @var string URL of the item
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      * @ApiProperty(iri="http://schema.org/url")
      * @Assert\Url
+     * @Assert\NotNull
      */
     private $url;
 
     /**
-     * @var string|null email address
+     * @var string email address
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      * @ApiProperty(iri="http://schema.org/email")
      * @Assert\Email
+     * @Assert\NotNull
      */
     private $email;
 
     /**
-     * @var string|null An image of the item. This can be a \[\[URL\]\] or a fully described \[\[ImageObject\]\].
+     * @var string|null An image of the item. This can be a [URL](http://schema.org/URL) or a fully described [ImageObject](http://schema.org/ImageObject).
      *
      * @ORM\Column(type="text", nullable=true)
      * @ApiProperty(iri="http://schema.org/image")
@@ -93,12 +96,12 @@ class Organization
         return $this->id;
     }
 
-    public function setName(?string $name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -113,22 +116,22 @@ class Organization
         return $this->description;
     }
 
-    public function setUrl(?string $url): void
+    public function setUrl(string $url): void
     {
         $this->url = $url;
     }
 
-    public function getUrl(): ?string
+    public function getUrl(): string
     {
         return $this->url;
     }
 
-    public function setEmail(?string $email): void
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }

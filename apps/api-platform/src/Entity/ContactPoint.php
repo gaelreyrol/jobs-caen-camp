@@ -30,19 +30,21 @@ class ContactPoint
     private $id;
 
     /**
-     * @var string|null the name of the item
+     * @var string the name of the item
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      * @ApiProperty(iri="http://schema.org/name")
+     * @Assert\NotNull
      */
     private $name;
 
     /**
-     * @var string|null email address
+     * @var string email address
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      * @ApiProperty(iri="http://schema.org/email")
      * @Assert\Email
+     * @Assert\NotNull
      */
     private $email;
 
@@ -67,22 +69,22 @@ class ContactPoint
         return $this->id;
     }
 
-    public function setName(?string $name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setEmail(?string $email): void
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }

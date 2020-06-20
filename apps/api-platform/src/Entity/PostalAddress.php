@@ -38,23 +38,25 @@ class PostalAddress
     private $streetAddress;
 
     /**
-     * @var string|null The postal code. For example, 94043.
+     * @var string The postal code. For example, 94043.
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      * @ApiProperty(iri="http://schema.org/postalCode")
+     * @Assert\NotNull
      */
     private $postalCode;
 
     /**
-     * @var string|null The locality. For example, Mountain View.
+     * @var string The locality in which the street address is, and which is in the region. For example, Mountain View.
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      * @ApiProperty(iri="http://schema.org/addressLocality")
+     * @Assert\NotNull
      */
     private $addressLocality;
 
     /**
-     * @var string|null The country. For example, USA. You can also provide the two-letter \[ISO 3166-1 alpha-2 country code\](http://en.wikipedia.org/wiki/ISO\_3166-1).
+     * @var string|null The country. For example, USA. You can also provide the two-letter [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1).
      *
      * @ORM\Column(type="text", nullable=true)
      * @ApiProperty(iri="http://schema.org/addressCountry")
@@ -76,22 +78,22 @@ class PostalAddress
         return $this->streetAddress;
     }
 
-    public function setPostalCode(?string $postalCode): void
+    public function setPostalCode(string $postalCode): void
     {
         $this->postalCode = $postalCode;
     }
 
-    public function getPostalCode(): ?string
+    public function getPostalCode(): string
     {
         return $this->postalCode;
     }
 
-    public function setAddressLocality(?string $addressLocality): void
+    public function setAddressLocality(string $addressLocality): void
     {
         $this->addressLocality = $addressLocality;
     }
 
-    public function getAddressLocality(): ?string
+    public function getAddressLocality(): string
     {
         return $this->addressLocality;
     }

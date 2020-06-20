@@ -1,39 +1,57 @@
+rdfa:
+    - https://schema.org/version/latest/schema.rdf
+    - https://schema.org/version/latest/ext-pending.rdf
 id:
     generationStrategy: uuid
 types:
     JobPosting:
         properties:
-            title: ~
+            title:
+                nullable: false
             url: ~
-            datePosted: ~
+            datePosted:
+                range: Date
+                nullable: false
             employerOverview:
-                range: Text
-            employmentType: ~
-            experienceRequirements: ~
+                nullable: false
+            employmentType:
+                nullable: false
+            experienceRequirements:
+                nullable: false
             jobStartDate:
                 range: Date
-            skills: ~
-            validThrough: ~
+            skills:
+                nullable: false
+            validThrough:
+                range: Date
             hiringOrganization: ~
     Organization:
         properties:
-            name: ~
+            name:
+                nullable: false
             description: ~
-            url: ~
-            email: ~
-            image: ~
+            url:
+                nullable: false
+            email:
+                nullable: false
+            image:
+                range: URL
             address:
                 range: PostalAddress
             contactPoints: ~
     PostalAddress:
         properties:
             streetAddress: ~
-            postalCode: ~
-            addressLocality: ~
+            postalCode:
+                nullable: false
+            addressLocality:
+                nullable: false
             addressCountry: ~
     ContactPoint:
         properties:
-            name: ~
-            email: ~
+            name:
+                nullable: false
+            email:
+                nullable: false
             telephone: ~
             contactType: ~
