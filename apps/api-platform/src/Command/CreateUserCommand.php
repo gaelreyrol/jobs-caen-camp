@@ -55,6 +55,7 @@ class CreateUserCommand extends Command
             foreach ($violations as $violation) {
                 $output->writeln($violation);
             }
+
             return Command::FAILURE;
         }
 
@@ -67,7 +68,7 @@ class CreateUserCommand extends Command
 
         $violations = $validator->validate($email, [
             new Length([
-                'min' => 8
+                'min' => 8,
             ]),
         ]);
 
@@ -75,6 +76,7 @@ class CreateUserCommand extends Command
             foreach ($violations as $violation) {
                 $output->writeln($violation);
             }
+
             return Command::FAILURE;
         }
 
