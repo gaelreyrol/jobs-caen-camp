@@ -12,6 +12,7 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Validation;
 
 class CreateUserCommand extends Command
@@ -63,6 +64,19 @@ class CreateUserCommand extends Command
 
         $helper = $this->getHelper('question');
         $password = $helper->ask($input, $output, $passwordQuestion);
+
+        $violations = $validator->validate($email, [
+            new Length([
+                'min' => 8
+            ]),
+        ]);
+
+        if (count($violations)) {
+            foreach ($violations as $violation) {
+                $output->writeln($violation);
+            }
+            return Command::FAILURE;
+        }
 
         $io->newLine();
 
