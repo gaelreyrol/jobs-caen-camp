@@ -55,7 +55,7 @@ final class SwaggerDecorator implements NormalizerInterface
                     'post' => [
                         'tags' => ['Token'],
                         'operationId' => 'postCredentialsItem',
-                        'summary' => 'Get JWT token to login.',
+                        'summary' => 'Get JWT token to authenticate.',
                         'requestBody' => [
                             'description' => 'Create new JWT Token',
                             'content' => [
