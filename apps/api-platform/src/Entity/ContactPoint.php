@@ -15,7 +15,19 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @see http://schema.org/ContactPoint Documentation on Schema.org
  *
  * @ORM\Entity
- * @ApiResource(iri="http://schema.org/ContactPoint")
+ * @ApiResource(
+ *      iri="http://schema.org/ContactPoint",
+ *      collectionOperations={
+ *          "get",
+ *          "post"={"security"="is_granted('IS_AUTHENTICATED_FULLY')"},
+ *      },
+ *      itemOperations={
+ *          "get",
+ *          "delete"={"security"="is_granted('IS_AUTHENTICATED_FULLY')"},
+ *          "put"={"security"="is_granted('IS_AUTHENTICATED_FULLY')"},
+ *          "patch"={"security"="is_granted('IS_AUTHENTICATED_FULLY')"}
+ *      }
+ * )
  */
 class ContactPoint
 {

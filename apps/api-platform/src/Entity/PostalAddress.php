@@ -15,7 +15,19 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @see http://schema.org/PostalAddress Documentation on Schema.org
  *
  * @ORM\Entity
- * @ApiResource(iri="http://schema.org/PostalAddress")
+ * @ApiResource(
+ *      iri="http://schema.org/PostalAddress",
+ *      collectionOperations={
+ *          "get",
+ *          "post"={"security"="is_granted('IS_AUTHENTICATED_FULLY')"}
+ *      },
+ *      itemOperations={
+ *          "get",
+ *          "delete"={"security"="is_granted('IS_AUTHENTICATED_FULLY')"},
+ *          "put"={"security"="is_granted('IS_AUTHENTICATED_FULLY')"},
+ *          "patch"={"security"="is_granted('IS_AUTHENTICATED_FULLY')"}
+ *      }
+ * )
  */
 class PostalAddress
 {

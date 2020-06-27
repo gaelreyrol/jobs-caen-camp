@@ -15,7 +15,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @see http://schema.org/JobPosting Documentation on Schema.org
  *
  * @ORM\Entity
- * @ApiResource(iri="http://schema.org/JobPosting")
+ * @ApiResource(
+ *      iri="http://schema.org/JobPosting",
+ *      itemOperations={
+ *          "get",
+ *          "delete"={"security"="is_granted('IS_AUTHENTICATED_FULLY')"},
+ *          "put"={"security"="is_granted('IS_AUTHENTICATED_FULLY')"},
+ *          "patch"={"security"="is_granted('IS_AUTHENTICATED_FULLY')"}
+ *      }
+ * )
  */
 class JobPosting
 {

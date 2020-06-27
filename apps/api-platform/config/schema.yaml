@@ -39,6 +39,7 @@ types:
             address:
                 range: PostalAddress
             contactPoints: ~
+            foundingDate: ~
     PostalAddress:
         properties:
             streetAddress: ~

@@ -15,7 +15,19 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @see http://schema.org/Organization Documentation on Schema.org
  *
  * @ORM\Entity
- * @ApiResource(iri="http://schema.org/Organization")
+ * @ApiResource(
+ *      iri="http://schema.org/Organization",
+ *      collectionOperations={
+ *          "get",
+ *          "post"={"security"="is_granted('IS_AUTHENTICATED_FULLY')"}
+ *      },
+ *      itemOperations={
+ *          "get",
+ *          "delete"={"security"="is_granted('IS_AUTHENTICATED_FULLY')"},
+ *          "put"={"security"="is_granted('IS_AUTHENTICATED_FULLY')"},
+ *          "patch"={"security"="is_granted('IS_AUTHENTICATED_FULLY')"}
+ *      }
+ * )
  */
 class Organization
 {
@@ -91,6 +103,15 @@ class Organization
      */
     private $contactPoint;
 
+    /**
+     * @var \DateTimeInterface|null the date that this organization was founded
+     *
+     * @ORM\Column(type="date", nullable=true)
+     * @ApiProperty(iri="http://schema.org/foundingDate")
+     * @Assert\Date
+     */
+    private $foundingDate;
+
     public function getId(): ?string
     {
         return $this->id;
@@ -164,5 +185,15 @@ class Organization
     public function getContactPoint(): ?ContactPoint
     {
         return $this->contactPoint;
+    }
+
+    public function setFoundingDate(?\DateTimeInterface $foundingDate): void
+    {
+        $this->foundingDate = $foundingDate;
+    }
+
+    public function getFoundingDate(): ?\DateTimeInterface
+    {
+        return $this->foundingDate;
     }
 }
