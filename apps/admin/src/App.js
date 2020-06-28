@@ -1,65 +1,68 @@
 import React from 'react';
-import { fetchUtils, Admin, Resource } from 'react-admin';
+import { Redirect, Route } from 'react-router-dom';
+import {
+    HydraAdmin,
+    hydraDataProvider as baseHydraDataProvider,
+    fetchHydra as baseFetchHydra,
+} from '@api-platform/admin';
+import parseHydraDocumentation from '@api-platform/api-doc-parser/lib/hydra/parseHydraDocumentation';
+import authProvider from './authProvider';
 
-import jobBoardDataProvider from './jobBoardDataProvider';
-import { authProvider } from './authProvider';
-import Organization from './organization';
-import JobPosting from './job-posting';
-import inMemoryJWT from './inMemoryJWT';
-import LoginPage from './LoginPage';
-import LogoutButton from './LogoutButton';
-
-const httpClient = (url, options = {}) => {
-    if (!options.headers) {
-        options.headers = new Headers({ Accept: 'application/json' });
-    }
-    const token = inMemoryJWT.getToken();
-    if (token) {
-        options.headers.set('Authorization', `Bearer ${token}`);
-    }
-
-    return fetchUtils.fetchJson(url, options);
+const entrypoint = process.env.REACT_APP_API_ENTRYPOINT;
+const fetchHeaders = {
+    Authorization: `Bearer ${window.localStorage.getItem('token')}`,
 };
 
-const dataProvider = jobBoardDataProvider(
-    'http://localhost:8001/api',
-    httpClient
+const fetchHydra = (url, options = {}) =>
+    baseFetchHydra(url, {
+        ...options,
+        headers: new Headers(fetchHeaders),
+    });
+
+const apiDocumentationParser = (entrypoint) =>
+    parseHydraDocumentation(entrypoint, {
+        headers: new Headers(fetchHeaders),
+    }).then(
+        ({ api }) => ({ api }),
+        (result) => {
+            switch (result.status) {
+                case 401:
+                    return Promise.resolve({
+                        api: result.api,
+                        customRoutes: [
+                            <Route
+                                path="/"
+                                render={() => {
+                                    return window.localStorage.getItem(
+                                        'token'
+                                    ) ? (
+                                        window.location.reload()
+                                    ) : (
+                                        <Redirect to="/login" />
+                                    );
+                                }}
+                            />,
+                        ],
+                    });
+
+                default:
+                    return Promise.reject(result);
+            }
+        }
+    );
+
+const dataProvider = baseHydraDataProvider(
+    entrypoint,
+    fetchHydra,
+    apiDocumentationParser
 );
 
 const App = () => (
-    <Admin
-        authProvider={authProvider}
+    <HydraAdmin
         dataProvider={dataProvider}
-        loginPage={LoginPage}
-        logoutButton={LogoutButton}
-    >
-        {(permissions) => [
-            <Resource
-                key="organisation"
-                name="organizations"
-                list={Organization.list}
-                edit={
-                    permissions === 'authenticated' ? Organization.edit : null
-                }
-                create={
-                    permissions === 'authenticated' ? Organization.create : null
-                }
-                icon={Organization.icon}
-                option={Organization.option}
-            />,
-            <Resource
-                key="job-posting"
-                name="job-postings"
-                list={JobPosting.list}
-                edit={permissions === 'authenticated' ? JobPosting.edit : null}
-                create={
-                    permissions === 'authenticated' ? JobPosting.create : null
-                }
-                icon={JobPosting.icon}
-                option={JobPosting.option}
-            />,
-        ]}
-    </Admin>
+        authProvider={authProvider}
+        entrypoint={process.env.REACT_APP_API_ENTRYPOINT}
+    />
 );
 
 export default App;
