@@ -4,11 +4,16 @@ import {
     HydraAdmin,
     hydraDataProvider as baseHydraDataProvider,
     fetchHydra as baseFetchHydra,
+    ResourceGuesser,
 } from '@api-platform/admin';
 import parseHydraDocumentation from '@api-platform/api-doc-parser/lib/hydra/parseHydraDocumentation';
 import authProvider from './authProvider';
 
+import Organization from './organization';
+import JobPosting from './job-posting';
+
 const entrypoint = process.env.REACT_APP_API_ENTRYPOINT;
+
 const fetchHeaders = {
     Authorization: `Bearer ${window.localStorage.getItem('token')}`,
 };
@@ -31,6 +36,7 @@ const apiDocumentationParser = (entrypoint) =>
                         api: result.api,
                         customRoutes: [
                             <Route
+                                key={0}
                                 path="/"
                                 render={() => {
                                     return window.localStorage.getItem(
@@ -54,7 +60,8 @@ const apiDocumentationParser = (entrypoint) =>
 const dataProvider = baseHydraDataProvider(
     entrypoint,
     fetchHydra,
-    apiDocumentationParser
+    apiDocumentationParser,
+    true
 );
 
 const App = () => (
@@ -62,7 +69,26 @@ const App = () => (
         dataProvider={dataProvider}
         authProvider={authProvider}
         entrypoint={process.env.REACT_APP_API_ENTRYPOINT}
-    />
+    >
+        <ResourceGuesser
+            name="organizations"
+            icon={Organization.icon}
+            options={Organization.options}
+            list={Organization.list}
+            show={Organization.show}
+            create={Organization.create}
+            edit={Organization.edit}
+        />
+        <ResourceGuesser
+            name="job-postings"
+            icon={JobPosting.icon}
+            options={JobPosting.options}
+            list={JobPosting.list}
+            show={JobPosting.show}
+            create={JobPosting.create}
+            edit={JobPosting.edit}
+        />
+    </HydraAdmin>
 );
 
 export default App;

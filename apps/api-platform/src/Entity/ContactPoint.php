@@ -18,11 +18,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *     iri="http://schema.org/ContactPoint",
  *     collectionOperations={
- *         "get",
+ *         "get": {"security": "is_granted('IS_AUTHENTICATED_FULLY')"},
  *         "post": {"security": "is_granted('IS_AUTHENTICATED_FULLY')"},
  *     },
  *     itemOperations={
- *         "get",
+ *         "get": {"security": "is_granted('IS_AUTHENTICATED_FULLY')"},
  *         "delete": {"security": "is_granted('IS_AUTHENTICATED_FULLY')"},
  *         "put": {"security": "is_granted('IS_AUTHENTICATED_FULLY')"},
  *         "patch": {"security": "is_granted('IS_AUTHENTICATED_FULLY')"}

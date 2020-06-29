@@ -1,65 +1,17 @@
 import React from 'react';
-import {
-    Edit,
-    TextInput,
-    SimpleForm,
-    SelectInput,
-    DateInput,
-    ReferenceInput,
-} from 'react-admin';
+import { EditGuesser } from '@api-platform/admin';
+import { TextInput, DateInput } from 'react-admin';
 
-import { jobTypes } from './index';
-
-const JobPostingTitle = ({ record }) =>
-    record ? `Edition de l'offre "${record.title}"` : null;
-
-export const JobPostingEdit = (props) => {
-    return (
-        <Edit title={<JobPostingTitle />} {...props}>
-            <SimpleForm>
-                <TextInput source="title" label="titre" fullWidth />
-                <TextInput
-                    source="employerOverview"
-                    multiline
-                    label="Description"
-                    fullWidth
-                />
-                <TextInput
-                    source="experienceRequirements"
-                    multiline
-                    label="Experience requise"
-                    fullWidth
-                />
-                <TextInput
-                    source="skills"
-                    label="Compétences demandées"
-                    fullWidth
-                />
-                <TextInput source="url" label="Lien vers l'annonce" fullWidth />
-                <SelectInput
-                    source="employmentType"
-                    label="Type de contrat"
-                    fullWidth
-                    choices={jobTypes}
-                />
-                <DateInput
-                    source="jobStartDate"
-                    label="Date de prise de poste"
-                    fullWidth
-                />
-                <DateInput
-                    source="validThrough"
-                    label="Valide jusqu'au"
-                    fullWidth
-                />
-                <ReferenceInput
-                    label="Entreprise"
-                    source="hiringOrganization.identifier"
-                    reference="organizations"
-                >
-                    <SelectInput optionText="name" />
-                </ReferenceInput>
-            </SimpleForm>
-        </Edit>
-    );
-};
+export const JobPostingEdit = (props) => (
+    <EditGuesser {...props}>
+        <TextInput source="title" />
+        <TextInput source="url" />
+        <TextInput source="employerOverview" />
+        <TextInput source="employmentType" />
+        <TextInput source="experienceRequirement" />
+        <TextInput source="skill" />
+        <DateInput source="datePosted" />
+        <DateInput source="jobStartDate" />
+        <DateInput source="validThrough" />
+    </EditGuesser>
+);

@@ -5,14 +5,14 @@
     "description": "Admin part of the caencamp jobboard",
     "dependencies": {
         "@api-platform/admin": "2.2.1",
-        "@testing-library/react": "10.0.4",
-        "@testing-library/user-event": "10.1.2",
+        "@testing-library/react": "10.4.3",
+        "@testing-library/user-event": "12.0.11",
         "jsonwebtoken": "8.5.1",
         "lodash.omit": "4.5.0",
         "prop-type": "0.0.1",
-        "query-string": "6.12.1",
+        "query-string": "6.13.1",
         "react": "16.13.1",
-        "react-admin": "3.5.0",
+        "react-admin": "3.6.2",
         "react-dom": "16.13.1",
         "react-scripts": "3.4.1"
     },

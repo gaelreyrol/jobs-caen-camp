@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -92,6 +93,7 @@ class Organization
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\PostalAddress")
      * @ApiProperty(iri="http://schema.org/address")
+     * @ApiSubresource(maxDepth=1)
      */
     private $address;
 
@@ -100,6 +102,7 @@ class Organization
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\ContactPoint")
      * @ApiProperty(iri="http://schema.org/contactPoints")
+     * @ApiSubresource(maxDepth=1)
      */
     private $contactPoint;
 

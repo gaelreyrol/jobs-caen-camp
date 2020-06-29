@@ -23,6 +23,10 @@ const authProvider = {
         localStorage.removeItem('token');
         return Promise.resolve();
     },
+    checkAuth: () =>
+        localStorage.getItem('token')
+            ? Promise.resolve()
+            : Promise.reject({ redirectTo: '/login' }),
     checkError: (error) => {
         const status = error.status;
         if (status === 401 || status === 403) {
@@ -31,10 +35,6 @@ const authProvider = {
         }
         return Promise.resolve();
     },
-    checkAuth: () =>
-        localStorage.getItem('token')
-            ? Promise.resolve()
-            : Promise.reject({ redirectTo: '/login' }),
     getPermissions: () => Promise.resolve(),
 };
 

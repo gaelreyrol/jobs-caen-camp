@@ -1,9 +1,9 @@
 import React from 'react';
-import { ListGuesser } from '@api-platform/admin';
+import { ShowGuesser } from '@api-platform/admin';
 import { TextField, UrlField, DateField } from 'react-admin';
 
-export const JobPostingList = (props) => (
-    <ListGuesser {...props}>
+export const JobPostingShow = (props) => (
+    <ShowGuesser {...props}>
         <TextField source="title" />
         <UrlField source="url" />
         <TextField source="employerOverview" />
@@ -13,5 +13,5 @@ export const JobPostingList = (props) => (
         <DateField source="datePosted" />
         <DateField source="jobStartDate" />
         <DateField source="validThrough" />
-    </ListGuesser>
+    </ShowGuesser>
 );
